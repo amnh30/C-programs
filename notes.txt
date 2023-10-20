@@ -79,7 +79,9 @@ goto
     EX.
         (Float)variable_name
 --------------------------------------------------------------------------------
-28-by default any auto  is local variable
+28-by default any auto  is local variable only with local variable
+    ex.
+     auto int Number_1
 --------------------------------------------------------------------------------
 29-
 --------------------------------------------------------------------------------
