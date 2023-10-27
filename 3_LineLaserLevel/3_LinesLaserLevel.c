@@ -71,11 +71,11 @@ void HorizontalButton(void)
     // Read the value of the horizontal push button
     scanf("%i", &HPB);
 
-    // If the horizontal push button is pressed, toggle the horizontal LED
+    // If the horizontal push button is pressed, toggle the horizontal Laser
     if (HPB == 1)
     {
         HPBCounter = !HPBCounter;
-        printf("The horizontal LED is now %i\n", HPBCounter);
+        printf("The horizontal Laser is now %i\n", HPBCounter);
     }
 }
 
@@ -98,16 +98,16 @@ void VerticalButton(void)
     switch (VPBCounter)
     {
     case 1:
-        printf("The first vertical LED is now on\n");
+        printf("The first vertical Laser is now on\n");
         break;
     case 2:
-        printf("The first vertical LED is still on\n");
-        printf("The second vertical LED is now on\n");
+        printf("The first vertical Laser is still on\n");
+        printf("The second vertical Laser is now on\n");
         break;
     case 3:
-        // If the vertical push button counter is equal to 3, turn off both vertical LEDs and reset the counter
-        printf("The first vertical LED is now off\n");
-        printf("The second vertical LED is now off\n");
+        // If the vertical push button counter is equal to 3, turn off both vertical Lasers and reset the counter
+        printf("The first vertical Laser is now off\n");
+        printf("The second vertical Laser is now off\n");
         VPBCounter = 0;
         break;
     }
@@ -123,12 +123,12 @@ void Flashing(void)
     printf("Enter the horizontal error: ");
     scanf("%i", &HorizontalError);
 
-    // If the manual switch is on and the horizontal error is present, or if the manual switch is on and the virtual switch is on, flash all of the LEDs
+    // If the manual switch is on and the horizontal error is present, or if the manual switch is on and the virtual switch is on, flash all of the Lasers
     if ((ManualSwitch == 1 && HorizontalError == 1) || (ManualSwitch == 1 && VirtualSwitch == 1))
     {
-        printf("All of the LEDs are now on\n");
+        printf("All of the Lasers are now on\n");
         printf("Delay(100);\n");
-        printf("All The LEDs are off\n");
+        printf("All The Lasers are off\n");
     }
 }
 void Run(void)
@@ -142,7 +142,7 @@ void Run(void)
     // If either the manual or virtual switch is on, call the Flashing(), HorizontalButton(), and VerticalButton() functions
     if (ManualSwitch == 1 || VirtualSwitch == 1)
     {
-        // Flash the LEDs
+        // Flash the Lasers
         Flashing();
 
         // Check the state of the horizontal push button
