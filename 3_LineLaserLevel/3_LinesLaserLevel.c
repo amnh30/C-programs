@@ -12,19 +12,19 @@
 /*----------Variable DefinitionStart---------*/
 
 // Define the push buttons
-int HPB; /*Horizontal Push Button Definition*/
-int VPB; /*Vertical Push Button Definition*/
+char HPB; /*Horizontal Push Button Definition*/
+char VPB; /*Vertical Push Button Definition*/
 
 // Define the push button counters
-int HPBCounter; /*Horizontal Push Button Counter Definition*/
-int VPBCounter; /*Vertical Push Button Counter Definition*/
+char HPBCounter; /*Horizontal Push Button Counter Definition*/
+char VPBCounter; /*Vertical Push Button Counter Definition*/
 
 // Define the manual and virtual switches
-int ManualSwitch;  /*Lock Switch Definition*/
-int VirtualSwitch; /*Out Push Button Definition*/
+char ManualSwitch;  /*Lock Switch Definition*/
+char VirtualSwitch; /*Out Push Button Definition*/
 
 // Define the horizontal error sensor
-int HorizontalError; /*Horizontal Error Sensor Definition*/
+char HorizontalError; /*Horizontal Error Sensor Definition*/
 
 /*----------Variable DefinitionEnd-----------*/
 
@@ -46,7 +46,7 @@ void Run(void);
 
 /*----------MainFunctionStart---------------*/
 
-int main()
+char main()
 {
     // Create an infinite loop to keep the program running
     while (1)
