@@ -143,7 +143,8 @@ to declare us extern  before data type
 --------------------------------------------------------------------------------
 45-scanf("%i%i%i", &num1,&num2,&num3); to take mult number from user
 --------------------------------------------------------------------------------
-46-nested if 
+46-nested if  u must break any case in switch u dont need to put break for default
+    if ath the end of switch    
 --------------------------------------------------------------------------------
 47-
 --------------------------------------------------------------------------------
