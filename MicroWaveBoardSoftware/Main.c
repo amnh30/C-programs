@@ -24,7 +24,7 @@ void Welcome()
 
   system("cls");
   printf("Hi Ahmed \n");
-  Sleep(500);
+  Sleep(1000);
   printf("Please Select your Program");
   Sleep(500);
   system("cls");

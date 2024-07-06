@@ -120,19 +120,30 @@ to declare us extern  before data type
 --------------------------------------------------------------------------------
 39-if u set the varuiable unsigned only the compiler will assume it int data type
 --------------------------------------------------------------------------------
-40-
+40-errors types
+
+    syntax error   --> write wrong c syntax as Int instead of int
+    Run Time error --> happens in execution-time after successful compilation as divion by 0
+    Linker error   --> after all file compilation the linker lin all file the error happens here as undefinde variable
+    logical error  --> write good syntax but doesnt do the wanted function as closing loop with ; after condtions section
+    semantic error --> occured when the statements arnt understandable by the compiler like use of uninitialized variable
+        error in expression, array index out of range and type compatibility
 --------------------------------------------------------------------------------
-41-
+41- literals
+    prefix 0 = octa,0x = hex & suffix u = unsigned, l = long, f = float ex 200.0f
+    Note not uu or ll, 200f, 0.5e, , .5e
+    
 --------------------------------------------------------------------------------
-42-
+42-test++ post increment, ++test pre increment
 --------------------------------------------------------------------------------
-43-
+43-promotion can be applied on char and short so becarefull important
 --------------------------------------------------------------------------------
-44-
+44- ?: ternary operator take 3 expression variable = expression1 ? expression2 :expression3
+    ex. short = NumberOne == NumberTwo ? 0x11 : 0X22 ;
 --------------------------------------------------------------------------------
-45-
+45-scanf("%i%i%i", &num1,&num2,&num3); to take mult number from user
 --------------------------------------------------------------------------------
-46-
+46-nested if 
 --------------------------------------------------------------------------------
 47-
 --------------------------------------------------------------------------------
