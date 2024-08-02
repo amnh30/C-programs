@@ -60,11 +60,16 @@ again:
 goto
 --------------------------------------------------------------------------------
 25- 
--its important to add break at the end od every case in switch case if th case
+-its important to add break at the end of every case in switch case if th case
     is true the microcontroller will continue in printing the casess which after 
     the true one.
-- default u can write  break or not but becarefull with the position of 
+-default u can write  break or not but becarefull with the position of 
     the default the most commen at the end but u cans change the place.
+-You cant put variiable in cases.
+ex.
+case y : // this is wrong
+breake;
+if you want to set range in case 1...1
 --------------------------------------------------------------------------------
 26-
 -in for loop u can wirte the counter in the {} 
@@ -74,8 +79,9 @@ goto
     for(;;){
 
     }
+
 --------------------------------------------------------------------------------
-27-if u want to change the sata type put (type) before variable_name
+27-if u want to change the data type put (type) before variable_name
     EX.
         (Float)variable_name
 --------------------------------------------------------------------------------
@@ -97,17 +103,18 @@ goto
 --------------------------------------------------------------------------------
 33- static makes the global value project scope to file scope
 --------------------------------------------------------------------------------
-34-double Quotes string & single Quotes one letter--------------------------------------------------------------------------
---------------------------------------------------------------------------------
-35-
-esacpe sequences:
+34-double Quotes string & single Quotes one letter
+----------------------------------------------------------------------------------------------------------------------------------------
 
+------------------------------------------------------Second-Try--------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------------------------------------------
+35-escape sequences:
 \n --> new line
 \a --> alarm
 \t --> tab
 \\ --> print \
 \" --> print "
-
 --------------------------------------------------------------------------------
 36- it recommended to set signed or unsigned befor variable type case some
  compiler random it
@@ -145,100 +152,237 @@ to declare us extern  before data type
 --------------------------------------------------------------------------------
 46-nested if  u must break any case in switch u dont need to put break for default
     if ath the end of switch    
+ -you can  add Range in switch with  Number ... Number
+ Ex.
+    202 ... 500
 --------------------------------------------------------------------------------
-47-
+47-dont define the variable in for expression
 --------------------------------------------------------------------------------
-48-
+48-any function have to return error state
 --------------------------------------------------------------------------------
-49-
+49-set the name of function with the name of module to ease selecting the function
+----------------------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------Memorey-Stack---------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------------------------------------------
+50- unsigned int Number1 = 55; /* Global Variable Initialized */     .data ROM .data RAM
+    unsigned int Number2; /* Global Variable Not Initialized */                .bss  RAM block stated by symbol
+    unsigned int Number3 = 0; /* Global Variable Initialized To 0 */           .bss  RAM
+    const unsigned int Number4 = 55; /* Constant Global Variable Initialized To 55 */ .rodata ROM optomize replace the variable with value
+    unsigned int Number1 = 55; /* Local Variable Initialized */                         .stack RAM
+    unsigned int Number2; /* Local Variable Not Initialized */                          .stack RAM
+    unsigned int Number3 = 0; /* Local Variable Initialized To 0 */                     .stack RAM
+    const unsigned int Number4 = 55; /* Constant Local Variable Initialized To 55 */    .stack RAM
+
+    The code Is stored in .text/code Segement ROM
+    .heap RAM set memorey in run time not determined
 --------------------------------------------------------------------------------
-50-
+51-any auto variable is local variable  
 --------------------------------------------------------------------------------
-51-
+52-static with global variable and function can be seen only in the current file only
+    static with local variable stay in the .data segement until the end of program
+----------------------------------------------------------------------------------------------------------------------------------------
+
+----------------------------------------------Preprocessor-Directives-------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------------------------------------------
+53-cpp FileName.c > FileName.i --> to create intermediate fil of pre-processing
+    gcc -o FileName.exe FileName.c FileName2.c --> compile the file to exe file; -o --> Place the output into <file>.
+    gcc -S FileName.i --> compile the file into assembley file ;    -S --> Compile only; do not assemble or link.
+
 --------------------------------------------------------------------------------
-52-
+54- in macros dont put semicolon and comment in the end and dont make it empity ex #define DefineName Value
 --------------------------------------------------------------------------------
-53-
+55-#/
+define /
+DefineName /
+value
+this is none line micro takecare the spaces betwn defin / and DefineName /
 --------------------------------------------------------------------------------
-54-
+56- function like micro # define Function_Name(paramter1,paramter2,...) (Function content)
 --------------------------------------------------------------------------------
-55-
+57-FLM h
 --------------------------------------------------------------------------------
-56-
+58-file guard in Header file to protect reinlcuding the heaer file ex 
+    #ifndef _LCD_H_
+    #define _LCD_H_
+
+    write every declaration here 
+
+    #endif  
 --------------------------------------------------------------------------------
-57-
+59-if u want modify the defaukt defined macros with #line Line_Number "File_Name" ex
+
 --------------------------------------------------------------------------------
-58-
+60- #pragma once --> it can replace file guard but it depend on the compiler type
+    #pragma GCC poison printf --> it prevent the use from using printf but it depend on the compiler type
+    #pragma GCC waring "app.h is used "--> it write waring to user but it depend on the compiler type
+    #pragma GCC error "app.h is used " --> it write error to user but it depend on the compiler type
+----------------------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------Array-----------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+61- unsigned int array[40] = {1,5,[15]= 0x66,56,[36]=0x56};
 --------------------------------------------------------------------------------
-59-
+62-the array any overwrite memorey pcae because it can see the lenght of it so u have to make rule to set the size of it 
 --------------------------------------------------------------------------------
-60-
+63- if you  want to access any element of array FirstElementAdress+(WantedElementNo.  * SizeOfOneElement)
 --------------------------------------------------------------------------------
-61-
+64-the time to get access any element in arrray is the same as access first element fastest type of data storage
 --------------------------------------------------------------------------------
-62-
+65-in char array u have set null terminator that meand add extra one elemnt in size of arrray to avoid conflict in printing
+    ex.
+    char array[6] = "Ahmed"; //here we added extra one element to avoid conflict
 --------------------------------------------------------------------------------
-63-
+66-we can scan char as string without & in the scanf function but becarefull   
+    if u put space in the scan the rest of text after space will be neglected
+    to fix after scan put the string arrray name in funcion call gets()
+    ex.
+        scanf("%s",string);
+        gets(string);
 --------------------------------------------------------------------------------
-64-
+67-specifier %c have a problem with char so u have to clear buffer every time u
+take value of char from user with fflush(stdin);    
+ex.
+    scanf("%c",string);
+    fflush(stdin);
+
+
 --------------------------------------------------------------------------------
-65-
+68-it very important to make the variable constant if u wont modify it in funtion 
+ex.
+    Void ArrayPrint(const array[], const arraysize);
+    ArrayPrint(ArrrayName,ArraySize); // call function to set array in it
+    Void ArrayPrint(const array[], const arraysize){
+        function content without changing in value of array[] or arraysize
+    }
+    this it general rule and important
 --------------------------------------------------------------------------------
-66-
+69- in 2D array u have to set the second size of enternal array in the function
+    ex.
+        Void ArrayPrint(const array[][30], const arraysize);
+    ArrayPrint(ArrrayName,ArraySize); // call function to set array in it
+    Void ArrayPrint(const array[][30], const arraysize){
+        function content without changing in value of array[] or arraysize }
+----------------------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------pointers--------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------------------------------------------
+70-pointer storage address of variable and they must be same type of data
 --------------------------------------------------------------------------------
-67-
+71- unsigned int *ptr; --> pointer  pointing to variable with data type unsigned int 
+      unsigned int  *ptr2;
+      ptr2 = &variable; //it means u set the address of variable  in pointer ptr2
+      printf("%i",*ptr2); this means got to the address in ptr2 & displaythe content ==*(&variable) 
+      *ptr2 = 5;
+    &variable_name --> the value of this is the address of variable_name
+    *(&variable_name) --> got to the address of variable_name and display the stored value 
 --------------------------------------------------------------------------------
-68-
+72- nonintialized pointers called wild pointers undefinded behaviour
+    null pointer is a pointer with adress Null ex. int *ptr = NULL;
+    dangling pointer is a pointer includes address after free() function
 --------------------------------------------------------------------------------
-69-
+73- to register memorey space with funcion called malloc(SizeOfRegisteredSpace);
+    the malloc return the value of the first element address in registered space
+    to free the malloc() space from memorey we use free(address) function  
 --------------------------------------------------------------------------------
-70-
+74-explicit casting convert a data type to another baesed on selected one 
+    ex. 
+    (type_name) expression
+    (float)variable_name
 --------------------------------------------------------------------------------
-71-
+75-void pointer fix data type problem but u must use explicit casting to set the
+     number of byte of data *((DataType *)PointerName) in case you want to set value in it
+     or u take and display from it 
+    ex. 
+    void *ptr = &number;
+    printf("%i",*((unsigned int *)ptr));
+    *((unsigned char *)ptr) = 22;
 --------------------------------------------------------------------------------
-72-
+76-call by value when u put value in call of funtion ex. funtio(5,6);
+    call by reference when u put the address in call of funtion ex. funtio(&variable1,&variable2);
 --------------------------------------------------------------------------------
-73-
+77-in pointers we must set the pointer with the same type of data 
+    we can increment or decrement stored address in pointer and the next address will be based 
+    on the type of pointer DataType so u must set it the pointer correctly 
+    ex.
+    unsigned short Numbers[10] = {0x11,0x22,0x33,0x44,0x55,0x11,0x22,0x33,0x44,0x55};
+    unsigned short *Ptr1 = NULL;
+    unsigned short *Ptr2 = NULL;
+    ptr = &Numbers[0]; // 0x552210
+    ptr +=1; 0x552212;
+    ptr +=1;0x552214;
+    unsigned int Numbers[10] = {0x11,0x22,0x33,0x44,0x55,0x11,0x22,0x33,0x44,0x55};
+    unsigned int *Ptr1 = NULL;
+    unsigned int *Ptr2 = NULL;
+    ptr = &Numbers[0]; // 0x552210
+    ptr +=1; //0x552214;
+    ptr +=1; //0x552218;
+
 --------------------------------------------------------------------------------
-74-
+78-adding and substracting address increase or decrease based on pointer DataType size
 --------------------------------------------------------------------------------
-75-
+79-in pointers we cant add or multiple two pointer only substracting
 --------------------------------------------------------------------------------
-76-
+80-if u want to apply arithmetic operation on void pointer u must explicit casting the pointer before
 --------------------------------------------------------------------------------
-77-
---------------------------------------------------------------------------------
-78-
---------------------------------------------------------------------------------
-79-
---------------------------------------------------------------------------------
-80-
---------------------------------------------------------------------------------
-81-
+81-in explicit casting void pointer we can increase it with this form (unsigned int *) ptr3 +=1;
+    the right one is ptr3 = (unsigned int *) ptr3 + 1;
 --------------------------------------------------------------------------------
 82-
+    p++ --> increment happens only for pointer not the address 
+    *p++ -->increment happens only for pointer not the address 
+    *(p++) -->increment happens only for pointer not the address 
+    (*p)++ -->increment happens only on the value of the memorey which have address 
 --------------------------------------------------------------------------------
 83-
 --------------------------------------------------------------------------------
-84-
+84-constant pointer doesnt the change data type content but can change the stored adddress
 --------------------------------------------------------------------------------
-85-
+85-becarefull of this two type of pointers
+    /* Ptr1 is a pointer , points to const data */
+    const unsigned int *Ptr1 = &NumberOne; /* Ptr1 can't change the NumberOne value */
+    /* Ptr2 is a pointer , points to const data */
+    unsigned int const *Ptr2 = &NumberOne; /* Ptr2 can't change the NumberOne value */
+    /* Ptr3 is a const pointer , points to data */
+    unsigned int *const Ptr3 = &NumberOne; /* Ptr3 can't be changed, but we can change the data */
+    /* Ptr4 is a const pointer , points to const data */
+    const unsigned int *const Ptr4 = &NumberOne;
+    unsigned int const *const Ptr5 = &NumberOne;
 --------------------------------------------------------------------------------
-86-
+86- to store variable while calling funcion you set static before variable_name
+    ex.
+    Static int array;
+    it's important with pointers too
 --------------------------------------------------------------------------------
-87-
+87-double pointer get access to the adddress of the variable while anotherpointer betwwnthem
+    Ex.
+    int mar = 5;
+    int *ptrmar = &mar;
+    int **ptrptrmar = &ptrmar; ---> this is double pointer
+    printf("%i",**ptrptrmar); ---> this get access of the content in mar
 --------------------------------------------------------------------------------
-88-
+88- char (*ptr)[20] = NULL; //ptr is pointer point on array leng 20 element type char
+    when you increment the pointer move 20 char 
 --------------------------------------------------------------------------------
-89-
+89-memset(location, value, len); --> set the value in memory location 
+    memcpy(Dist_location, src_location, leng); ---> compy value from memorey to another
 --------------------------------------------------------------------------------
-90-
+90- Void (*ptr)(void)  ---> function pointer
 --------------------------------------------------------------------------------
-91-
+91-Soring arrays 
+    bouble sorting
+
 --------------------------------------------------------------------------------
-92-
+92-if you wnat set number as addresss use explicit casting EX.
+    ptr = (int *)20;
 --------------------------------------------------------------------------------
-93-
+93- char *ArrayPtr[10]; Array of Pointers to char
+    
 --------------------------------------------------------------------------------
 94-
 --------------------------------------------------------------------------------
