@@ -89,7 +89,7 @@ if you want to set range in case 1...1
     ex.
      auto int Number_1
 --------------------------------------------------------------------------------
-29- if u ant to write cariable in cpu registers write register before data type
+29- if u ant to write variable in cpu registers write register before data type
     only in local variable and maybe the compiler wont write the value in the cpu
     registers baesed on free registers in cpu
     ex.
@@ -177,11 +177,22 @@ to declare us extern  before data type
 
     The code Is stored in .text/code Segement ROM
     .heap RAM set memorey in run time not determined
+----------------------------------------------------------------------------------------------------------------------------------
+--------|auto local | auto global   | Extern Local | Extern Global |static local | Static Global| Regster Local | Regster Global |
+---------------------------------------------------------------------------------------------------------------------------------|
+  scope |    {}     | WholeProject  |      {}      |     File.c    |      {}     |    File.c    |       {}      |  Not Appliable |
+---------------------------------------------------------------------------------------------------------------------------------|
+lifeTime|    {}     | WholeProject  | WholeProject |  WholeProject | WholeProject| WholeProject |       {}      |  Not Appliable |
+---------------------------------------------------------------------------------------------------------------------------------|
+ storage| Stack RAM | Init -> .data |     None     |     None      |intia->.data |   NoChange   |  RegsterBank  |  Not Appliable |
+        |           | noninit ->.bss|              |               |noninit->.bss|   NoChange   |               |                |
+----------------------------------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------
 51-any auto variable is local variable  
 --------------------------------------------------------------------------------
-52-static with global variable and function can be seen only in the current file only
+52- static with global variable and function can be seen only in the current file only
     static with local variable stay in the .data segement until the end of program
+    In funtion intialize variable only cause file
 ----------------------------------------------------------------------------------------------------------------------------------------
 
 ----------------------------------------------Preprocessor-Directives-------------------------------------------------------------------
@@ -190,9 +201,76 @@ to declare us extern  before data type
 53-cpp FileName.c > FileName.i --> to create intermediate fil of pre-processing
     gcc -o FileName.exe FileName.c FileName2.c --> compile the file to exe file; -o --> Place the output into <file>.
     gcc -S FileName.i --> compile the file into assembley file ;    -S --> Compile only; do not assemble or link.
+    |-----------#include-----------|
+In #include<Stido.h>
+   |#include"Motor.h"
+   --> 1- Absolute Path  "c//File//File.h" 
+   --> 2- Relative Path  "File.h" 
+                      "../Folder/File.h" Step back on step and get in folder
+    |------------#define------------|
+    #define x 10           
+    Note: to cancel define With #undef
+    ----------------------------------
+    #define x 10
+    #define y x
+    printf("%i",y); // OutPut is 10
+    ---------------------------------
+    #define y x
+    #define x y
+    printf("%i",x) // loop Will create Error compile Error
+    --------------------------------
+    |------------#define-Functions------------|
+    #define Add(a,b) a+b
+    |------------#define-Functions-MultLine------------|  
+    #define printName() do{             \
+                            printf("A");\
+                            printf("A");\
+                            printf("A");\
+                            }while(0)
 
+            printName()
+|--------------|Compare-Btwn-Function-MacroFunction|--------------|
+              |--------------------------------------|
+              |------|-Funtion-|-Function-Like-Macro-|
+              |Speed-|--Lower--|-------Faster--------|
+              |Memory|SaveMemo-|-----WasteMemory-----|
+              |--------------------------------------|
+    |------------#undef------------|
+    #define x 10
+    #undef x // Here We canceled define of x
+    |------------#if------------|
+    Note: We use it for configuration
+    #if (x == 10)
+      printf("A");
+      printf("B");
+    #elif (x > 10)
+      printf("C");
+      printf("D");
+    #else
+      printf("E");
+      printf("F");
+    #endif
+    |------------#ifdef------------|
+    #define x
+    #ifdef x
+    --
+    --
+    --
+    --
+    #endif
+    |------------#ifndef------------|
+    #define x
+    #ifndef x
+    --
+    --
+    --
+    --
+    #endif
+    |------------#error------------|
+    #error ("wrong")
+    
 --------------------------------------------------------------------------------
-54- in macros dont put semicolon and comment in the end and dont make it empity ex #define DefineName Value
+54- in macros dont put semicolon and comment in the end and dont make it empity ex. #define DefineName Value
 --------------------------------------------------------------------------------
 55-#/
 define /
@@ -219,6 +297,8 @@ this is none line micro takecare the spaces betwn defin / and DefineName /
     #pragma GCC poison printf --> it prevent the use from using printf but it depend on the compiler type
     #pragma GCC waring "app.h is used "--> it write waring to user but it depend on the compiler type
     #pragma GCC error "app.h is used " --> it write error to user but it depend on the compiler type
+    #pragma pack(1) --> rearrange the strcut to fill all padaing bits in memory
+    
 ----------------------------------------------------------------------------------------------------------------------------------------
 
 ------------------------------------------------------Array-----------------------------------------------------------------------------
@@ -302,6 +382,16 @@ ex.
     void *ptr = &number;
     printf("%i",*((unsigned int *)ptr));
     *((unsigned char *)ptr) = 22;
+    ------------------------Void-Pointer------------------------
+    void *ptr;
+    u8 a = 5;
+    u32 b = 10;
+    ptr = &a;
+    printf("%d",*((u8 *)ptr)); //explicit casting here for Void pointer
+    ptr  = &b;
+    *((u32 *)ptr) = 20;
+
+
 --------------------------------------------------------------------------------
 76-call by value when u put value in call of funtion ex. funtio(5,6);
     call by reference when u put the address in call of funtion ex. funtio(&variable1,&variable2);
@@ -382,41 +472,225 @@ ex.
     ptr = (int *)20;
 --------------------------------------------------------------------------------
 93- char *ArrayPtr[10]; Array of Pointers to char
-    
+
 --------------------------------------------------------------------------------
-94-
+94- typedef olddatatype newdatatype;
+    typedef unsigned char  u8;
+    typedef signed   char  s8;
+    typedef unsigned short int  u16;
+    typedef float   f32;
 --------------------------------------------------------------------------------
 95-
+----------------------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------Struct--------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------------------------------------------
+96- We use union to create multiple data type
+    struct structName {
+    DataType VariableName;
+    DataType VariableName;
+    DataType VariableName;
+    };
+
+    struct structName VariableName;
+We can set the number of bits in struct by writing "DataType VariableName:NumberOfBits;"
+ex.
+    struct structName {
+    DataType VariableName:2; // 2bits
+    DataType VariableName:3; // 3bits
+    DataType VariableName:4; // 4bits
+    };
+
+
+
+Note: when you write variable definition write it with asending or desending 
+Note: You fill pading in memory by pragma
+Note: You can set values in struct declaration
+
+
+
+
 --------------------------------------------------------------------------------
-96-
+97- We use union to create multiple data type With shared Space via max element size
+    union UnionName {
+    DataType VariableName;
+    DataType VariableName;
+    DataType VariableName;
+    }VariableName;
+
+    union unionName VariableName;
+
+/*We can use to control one bit in register or all The bits in it*/
+typedef union {
+    u8 byte;
+    strcut {
+        u8 bit0:1;
+        u8 bit1:1;
+        u8 bit2:1;
+        u8 bit3:1;
+        u8 bit4:1;
+        u8 bit5:1;
+        u8 bit6:1;
+        u8 bit7:1;
+
+    }bit;
+
+}Reg;
+
+Reg x;
+x.byte = 0xFF;
+x.bit.b2 = 0;
 --------------------------------------------------------------------------------
-97-
+98- typedef union UnionName {
+    DataType VariableName;
+    DataType VariableName;
+    DataType VariableName;
+    }amar;
+
+    amar Ahmed; //creaeted union with Ahmed Name and type of UnionName
 --------------------------------------------------------------------------------
-98-
+99- you can remove union name if you use typedef only
 --------------------------------------------------------------------------------
-99-
---------------------------------------------------------------------------------
-100-
+100-typedef union  {
+    DataType VariableName;
+    DataType VariableName;
+    DataType VariableName;
+    }amar;
+
+    amar ali;
+    amar *ptr; //you create pointer with amar union type
+    ptr = &ali;//you set the address in ptr
+    ptr->VariableName = 15; //you set value in union 
+    (*ptr).VariableName = 16;//you set value in union 
 --------------------------------------------------------------------------------
 101-
+    |----------------Malloc-Funtion----------------|
+u32 *ptr = (u32 *)malloc(5*sizeof(u32));
+if(NULL == ptr ){
+    --
+    --
+    }
+    |----------------Calloc-Funtion----------------|
+u32 *ptr = (u32 *)calloc(NumnerOFBlocks, SizeOFOneBlock);
+                    |
+                    |->NULL
+                    |->Address
+    -------------------------------------------------
+u32 *ptr = (u32 *)calloc(NumnerOFBlocks, SizeOFOneBlock);
+if(Null != ptr){
+    --
+    --
+    --
+}
+    |----------------Free-Funtion----------------|
+    Note: This funtion To free The Memory in heap
+    free(Wanted Pointer to Free)
+    ----------------------------------------------
+    u32 *ptr = (u32 *)calloc(NumnerOFBlocks, SizeOFOneBlock);
+    free(ptr);
+    ptr = NUll;
+    |----------------realloc-Funtion----------------|
+    u32 *ptr = (u32 *)realloc(PointerToBlock,NewSizeInBytes);
+    -------------------------------------------------
+    u32 *ptrArray = (u32 *)realloc(ptrArray,20*sizeof(ui32));
+
+    ----------------------------------------------
+ptr  = (unsigned *)malloc(5 * sizeof(int)); //to store 4*5 byte with address in ptr
+
 --------------------------------------------------------------------------------
-102-
+102- *(ptr +1) --> offset change the poointg without change the address in pointer
 --------------------------------------------------------------------------------
-103-
+103-ptr = (unsigned *)calloc(NumberOfElements, SizeOfElemnt); --> do like malloc but set the values with Zeros
 --------------------------------------------------------------------------------
-104-
+104-    ptr = (unsigned * )realloc(void *ptr, Size_t Size); --> Reallocate with new size 
+        ptr = (unsigned * )realloc((ptr,NumberOfElements + 200)* sizeof(int));
 --------------------------------------------------------------------------------
-105-
+105-1D Array 
+    ptr = (unsigned * )malloc((ArraySize * sizeof(unsigned int)));
+    ptr = (unsigned * )calloc((ArraySize , sizeof(unsigned int)));
 --------------------------------------------------------------------------------
-106-
+106-unsigned int **ptr = NULL;
+
 --------------------------------------------------------------------------------
-107-
+----------------------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------Data-Strcutre---------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------------------------------------------
+107- LIFO
+    Push:                   set data in stack
+    Pop:                    take data from stack
+    Stack:                  top see the content in stack
+    stack:                  intialize Initialize stack data type
+    Get Stack Size:         get size of stack
+    display stack Elements: display stack elements 
+
+
 --------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------InterFace-------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------------------------------------------
 108-
+/*-----------------------------Content-OF-Header-File---------------------------*/
+/*
+* File:File_Name
+* Author: Author_Name
+* Created: Date And Time
+*/
+
+/*File Guard*/
+#ifndef HAL_I2C_H
+#define HAL_I2C_H
+/*---------------Includes------------*/
+/*---------------Macro-Declaration------------*/
+/*---------------Macro-Function-Declaration------------*/
+/*---------------DataType-Declaration------------*/
+/*---------------Software-InterFace-Declaration-"APIs"------------*/
+#endif /*HAL_I2C_H*/
+
+/*-----------------------------Content-OF-Source-File---------------------------*/
+/*
+* File:File_Name
+* Author: Author_Name
+* Created: Date And Time
+*/
+/*---------------Includes------------*/
+/*---------------Function-Declaration------------*/
+/*---------------Global-Variable-Definition------------*/
+/*---------------APIs Definitions Or Helper Function Definitions-----------*/
+/*---------------ISRs Definitions PIC Example-----------*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 --------------------------------------------------------------------------------
-109-
+109- Computing system Inlcudes Three Main Components
+CPU processor
+Memorey
+I/O peripherals
 --------------------------------------------------------------------------------
-110-
+110-processor
+    Cu control unit
+    
 --------------------------------------------------------------------------------
 111-
 --------------------------------------------------------------------------------
